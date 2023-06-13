@@ -1,2 +1,2 @@
-# DSA_code_ptit_2023
-Good luck and see you the next time ;))
+# DSA_code_ptit
+Good luck and see you in the next time ;))
