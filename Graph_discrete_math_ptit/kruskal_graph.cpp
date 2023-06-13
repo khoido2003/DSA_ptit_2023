@@ -113,101 +113,102 @@ int main (){
 
 //Code toan rr2
 
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
-// using namespace std;
+using namespace std;
 
-// const int maxn = 1001;
+const int maxn = 1001;
 
-// struct edge{
-//     int u,v;
-//     int w;
-// };
+struct edge {
+  int u, v;
+  int w;
+};
 
-// int n,m;
-// int parent[maxn], sz[maxn];
-// vector<edge> canh;
+int n, m;
+int parent[maxn], sz[maxn];
+vector < edge > canh;
 
-// void make_set(){
-//     for (int i = 1; i <=n ;++i){
-//         parent[i] = i;
-//         sz[i] = 1;
-//     }
-// }
+void make_set() {
+  for (int i = 1; i <= n; ++i) {
+    parent[i] = i;
+    sz[i] = 1;
+  }
+}
 
-// int find(int v)
-// {
-//     if (v == parent[v]) return v;
-//     return parent[v] = find(parent[v]);
-// }
+int find(int v) {
+  if (v == parent[v]) return v;
+  return parent[v] = find(parent[v]);
+}
 
-// bool Union(int a,int b){
-//     a = find(a);
-//     b = find(b);
-//     if (a==b) return false;
-//     if(sz[a] < sz[b]) swap(a,b);
-//     parent[b] = a;
-//     sz[a]+= sz[b];
-//     return true;
-// }
+bool Union(int a, int b) {
+  a = find(a);
+  b = find(b);
+  if (a == b) return false;
+  if (sz[a] < sz[b]) swap(a, b);
+  parent[b] = a;
+  sz[a] += sz[b];
+  return true;
+}
 
-// void inp(){
-//     cin >> n;
-//     canh.clear();
-//     for (int i = 1; i <= n;++i){
-//         for (int j = 1; j <= n;++j){
-//             int w;
-//             cin >> w;
-//             if(w !=0 ){
-//                 edge e = edge{i,j,w};
-//                 canh.push_back(e);
-//             }
-//         }
-//     }
-//     m = canh.size();
-// }
+void inp() {
+  cin >> n;
+  canh.clear();
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= n; ++j) {
+      int w;
+      cin >> w;
+      if (w != 0) {
+        edge e = edge {
+          i,
+          j,
+          w
+        };
+        canh.push_back(e);
+      }
+    }
+  }
+  m = canh.size();
+}
 
-// bool cmp(edge a, edge b){
-//     if(a.w != b.w) {
-//         return a.w < b.w;
-//     }
-//     if (a.u != b.u) {
-//         return a.u < b.u;
-//     }
-//     return a.v < b.v;
-// }
+bool cmp(edge a, edge b) {
+  if (a.w != b.w) {
+    return a.w < b.w;
+  }
+  if (a.u != b.u) {
+    return a.u < b.u;
+  }
+  return a.v < b.v;
+}
 
-// void kruskal(){
-//     vector<edge> mst;
-//     int d = 0;
-//     sort(canh.begin(), canh.end(), cmp);
-//     make_set();
-//     for (int i = 0; i < m;++i){
-//         if(mst.size()==n-1) break;
-//         edge e = canh[i];
-        
-//         if(Union(e.u, e.v)){
-//             mst.push_back(e);
-//             d += e.w;
-//         }
-//     }
-//     if(mst.size() != n-1){
-//         cout << "Do thi khong lien thong" << endl;
-//     }
-//     else {
-//         cout << "dH = " << d << endl;
-//         for (auto it : mst){
-//             cout << it.u << " " << it.v << endl;
-//         }
-//     }
-// }
+void kruskal() {
+  vector < edge > mst;
+  int d = 0;
+  sort(canh.begin(), canh.end(), cmp);
+  make_set();
+  for (int i = 0; i < m; ++i) {
+    if (mst.size() == n - 1) break;
+    edge e = canh[i];
 
-// int main (){
-//     inp();
-//     kruskal();
-//     return 0;
-// }
+    if (Union(e.u, e.v)) {
+      mst.push_back(e);
+      d += e.w;
+    }
+  }
+  if (mst.size() != n - 1) {
+    cout << "Do thi khong lien thong" << endl;
+  } else {
+    cout << "dH = " << d << endl;
+    for (auto it: mst) {
+      cout << it.u << " " << it.v << endl;
+    }
+  }
+}
 
+int main() {
+  inp();
+  kruskal();
+  return 0;
+}
 ////////////////////////////
 
 // //3.7 toan rr2
