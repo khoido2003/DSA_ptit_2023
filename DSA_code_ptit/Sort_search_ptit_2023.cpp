@@ -8,6 +8,187 @@ using namespace std;
 #define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
 
 
+// DSA06044 - SẮP XẾP CHẴN LẺ
+
+int main() {
+
+  int n;
+  cin >> n;
+  int a[n];
+  vector < int > v1, v2;
+  for (int i = 0; i < n; ++i) {
+    cin >> a[i];
+    if (i % 2 == 0) v1.push_back(a[i]);
+    else v2.push_back(a[i]);
+  }
+  sort(v1.begin(), v1.end());
+  sort(v2.begin(), v2.end(), greater < int > ());
+
+  int t1 = 0, t2 = 0;
+
+
+
+  for (int i = 0; i < n; ++i) {
+    if (i % 2 == 0) {
+      cout << v1[t1] << " ";
+      t1++;
+    } else {
+      cout << v2[t2] << " ";
+      t2++;
+    }
+  }
+
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+
+// DSA06046 - CHÊNH LỆCH NHỎ NHẤT
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int &i : a)
+            cin >> i;
+        sort(a.begin(), a.end());
+        int ans = INT_MAX;
+        for (int i = 1; i < n; ++i)
+            ans = min(ans, a[i] - a[i - 1]);
+        cout << ans << endl;
+    }
+    return 0;
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
+// DSA06040 - GIAO CỦA BA DÃY SỐ
+
+int main ()
+{
+  int t = 1;
+  cin >> t;
+  while (t--)
+  {
+    int n, m, k;
+    cin >> n >> m >> k;
+    map<int, int> mp1, mp2, mp3;
+
+    for (int i = 0; i < n; ++i)
+    {
+      int x; cin >> x; 
+      mp1[x]++;
+    }
+
+    for (int i = 0; i < m; ++i)
+    {
+      int x; cin >> x; 
+      mp2[x]++;
+    }
+
+    for (int i = 0; i < k; ++i)
+    {
+      int x; cin >> x; 
+      mp3[x]++;
+    }
+
+    bool found = false;
+    for (auto it = mp1.begin(); it != mp1.end(); ++it)
+    {
+      int num = it -> first;
+      if(mp2.find(num) != mp2.end() and mp3.find(num) != mp3.end())
+      {
+        found = true;
+        int cnt = min(it -> second, min(mp2[num], mp3[num]));
+        while (cnt--)
+        {
+          cout << num << ' ';
+        }
+      }
+    }
+    if(found == false) cout << "-1";
+    cout << endl;
+  }
+  return 0;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+// DSA06039 - SỐ ĐẦU TIÊN BỊ LẶP
+
+string calc(int *a, int n, unordered_map<int, int> &m)
+{
+    for(int i = 0; i < n; ++i) if(m[a[i]] > 1) return to_string(a[i]);
+    return "NO";
+}
+
+int main()
+{
+    faster();
+    int t = 1;
+    cin >> t;
+    int n, a[100005];
+    while(t--)
+    {
+        cin >> n;
+        unordered_map<int, int> m;
+        for(int i = 0; i < n; ++i)
+        {
+            cin >> a[i];
+            ++m[a[i]];
+        }
+        cout << calc(a, n, m) << endl;
+    }
+    return 0;
+}
+
+////////////////////////////////////////////////////////////////
+
+// DSA06036 - BỘ BA SỐ BẰNG K
+
+string calc(vector<int>& a, int& k)
+{
+    int n = a.size();
+    int l, r;
+    for (int i = 0; i < n; ++i)
+    {
+        l = i + 1;
+        r = n - 1;
+        while (l < r)
+        {
+            if (a[i] + a[l] + a[r] == k)
+                return "YES";
+            if (a[i] + a[l] + a[r] < k)
+                ++l;
+            else
+                --r;
+        }
+    }
+    return "NO";
+}
+
+int main()
+{    
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n);
+        for (int& i : a)
+            cin >> i;
+        sort(a.begin(), a.end());
+        cout << calc(a, k) << endl;
+    }
+    return 0;
+}
 
 //////////////////////////////////////////////////////////////////
 
